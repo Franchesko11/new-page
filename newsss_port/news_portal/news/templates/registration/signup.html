@@ -1,0 +1,26 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Регистрация" %}</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>{% trans "Привет," %} {{ user.username }}! <a href="{% url 'logout' %}">{% trans "Выйти" %}</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">{% trans "Вход" %}</a></p>
+        {% endif %}
+    </nav>
+    <h1>{% trans "Регистрация" %}</h1>
+    {% if form.errors %}
+        <p style="color: red;">{% trans "Исправьте ошибки ниже:" %}</p>
+        {{ form.errors }}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Зарегистрироваться" %}</button>
+    </form>
+</body>
+</html>

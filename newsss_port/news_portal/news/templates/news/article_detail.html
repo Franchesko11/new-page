@@ -1,0 +1,20 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>{% trans "Привет," %} {{ user.username }}! <a href="{% url 'logout' %}">{% trans "Выйти" %}</a></p>
+        {% else %}
+            <p><a href="{% url 'signup' %}">{% trans "Регистрация" %}</a> | <a href="{% url 'login' %}">{% trans "Вход" %}</a></p>
+        {% endif %}
+    </nav>
+    <h1>{{ article.title }}</h1>
+    <p>{% trans "Категория:" %} {{ article.category.name }}</p>
+    <p>{% trans "Дата создания:" %} {{ article.created_at }}</p>
+    <p>{{ article.content }}</p>
+</body>
+</html>

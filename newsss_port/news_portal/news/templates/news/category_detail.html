@@ -1,0 +1,38 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }}</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>{% trans "Привет," %} {{ user.username }}! <a href="{% url 'logout' %}">{% trans "Выйти" %}</a></p>
+        {% else %}
+            <p><a href="{% url 'signup' %}">{% trans "Регистрация" %}</a> | <a href="{% url 'login' %}">{% trans "Вход" %}</a></p>
+        {% endif %}
+    </nav>
+    <h1>{{ category.name }}</h1>
+    {% if user.is_authenticated %}
+        {% if user in category.subscribers.all %}
+            <form method="post" action="{% url 'unsubscribe_category' category.pk %}">
+                {% csrf_token %}
+                <button type="submit">{% trans "Отписаться" %}</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'subscribe_category' category.pk %}">
+                {% csrf_token %}
+                <button type="submit">{% trans "Подписаться" %}</button>
+            </form>
+        {% endif %}
+    {% endif %}
+    <h2>{% trans "Статьи" %}</h2>
+    <ul>
+        {% for article in category.article_set.all %}
+            <li><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></li>
+        {% empty %}
+            <li>{% trans "Статей пока нет." %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

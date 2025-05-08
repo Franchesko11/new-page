@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weekly Digest</title>
+</head>
+<body>
+    <h1>Weekly Digest for {{ category.name }}</h1>
+    <p>Dear {{ user.username }},</p>
+    <p>Here are the new articles from the past week:</p>
+    <ul>
+    {% for article in articles %}
+        <li>
+            <a href="{{ site_url }}{{ article.get_absolute_url }}">{{ article.title }}</a>
+            <p>{{ article.summary }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

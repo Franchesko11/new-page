@@ -1,0 +1,19 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Вход" %}</title>
+</head>
+<body>
+    <h1>{% trans "Вход" %}</h1>
+    {% if form.errors %}
+        <p style="color: red;">{% trans "Неверное имя пользователя или пароль." %}</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Войти" %}</button>
+    </form>
+    <p>{% trans "Ещё не зарегистрированы?" %} <a href="{% url 'signup' %}">{% trans "Регистрация" %}</a></p>
+</body>
+</html>

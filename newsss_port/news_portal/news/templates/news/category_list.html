@@ -1,0 +1,17 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Список категорий" %}</title>
+</head>
+<body>
+    <h1>{% trans "Категории" %}</h1>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a></li>
+        {% empty %}
+            <li>{% trans "Категорий пока нет." %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
